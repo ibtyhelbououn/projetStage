@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.11.1/dist/js/uikit-icons.min.js"></script>
 </head>
 
+@auth
 <body>
 
   <div class="uk-position-top-right ">  
@@ -80,11 +81,16 @@
 
         <li class="uk-nav-header">Menu</li>
         <li><a href="categories"><span class="uk-margin-small-right" uk-icon="icon: tag"></span> Categories </a></li>
-        <li><a href="categories"><span class="uk-margin-small-right" uk-icon="icon: tag"></span> Products </a></li>
-        <li><a href="organizations"><span class="uk-margin-small-right" uk-icon="icon: world"></span><span class="uk-text-bold uk-text-italic"> Organizations </span></a></li>
+        <li><a href="products"><span class="uk-margin-small-right" uk-icon="icon: bag"></span> <span class="uk-text-bold uk-text-italic"> Products </span> </a></li>
+        <li><a href="organizations"><span class="uk-margin-small-right" uk-icon="icon: world"></span> Organizations</a></li>
         <li><a href="invoices"><span class="uk-margin-small-right" uk-icon="icon: database"></span> Invoices</a></li>
         <li class="uk-nav-divider"></li>
-        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: sign-out"></span> logout</a></li>
+        <li>
+          <form method="POST" action="{{ route('logout') }}" id="yourFormId">
+            @csrf
+           <a href="#" id="yourLinkId"><span class="uk-margin-small-right" uk-icon="icon: sign-out"></span> Logout</a>
+          </form>
+        </li>
     </ul>
 
 </div>
@@ -92,6 +98,21 @@
 
 
 </body>
+@endauth
+
+@guest
+
+<body class="uk-background-muted">
+
+<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m uk-position-center">
+  <h3 class="uk-card-title">Access denied!</h3>
+  <p>You do not have permission to access this page. <br>Please <a href="login">log in</a> and try again.</p>
+</div>
+
+</body>
+
+
+@endguest
 
 
 </html>

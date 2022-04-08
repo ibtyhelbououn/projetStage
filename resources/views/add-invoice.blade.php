@@ -11,6 +11,7 @@
 
 </head>
 
+@auth
 <body>
   <form method="post" action="{{url('/add-invoice')}}">
     {{ csrf_field() }}
@@ -63,7 +64,7 @@
             <input value="{{$product->tax}}" type="number" name="tax[]" class="form-control" id="tax">
           </td>
           <td>
-            <input type="number" step="0.01" name="subTotal[]" class="form-control" id="subTotal" onchange="calcul()">
+            <input type="number" step="0.01" name="subTotal[]" class="form-control subTotal" id="subTotal" onchange="calcul()">
           </td>
           <td><button type="button" class="btn btn-danger rounded-circle " disabled>☓</button></td>
           <td><button class="uk-close-large" type="button" uk-close></button></td>      
@@ -84,7 +85,7 @@
 <div class="col-md-2 float-end">
   <div class="card">
     <div class="card-header">
-      <h4> Total (TND) <input type="number" step="0.01" name="total" class="form-control" id="total"></h4>
+      <h4> Total (TND) <input type="number" step="0.01" name="total" class="form-control total" id="total"></h4>
     </div>
   </div>   
 </div>
@@ -97,6 +98,21 @@
 
   </form>
 </body>
+@endauth
+
+@guest
+
+<body class="uk-background-muted">
+
+<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m uk-position-center">
+  <h3 class="uk-card-title">Access denied!</h3>
+  <p>You do not have permission to access this page. <br>Please <a href="login">log in</a> and try again.</p>
+</div>
+
+</body>
+
+
+@endguest
 
 
 </html>
@@ -124,7 +140,7 @@
           '<td><input  type="number" value={{$product->id}} name="price[]" class="form-control" id="price" ></td>'+
           '<td><input type="number" name="quantity[]" class="form-control" id="quantity" ></td>'+
           '<td><input type="number" value="{{$product->tax}}" name="tax[]" class="form-control" id="tax" ></td>'+
-          '<td><input type="number" step="0.01" name="subTotal[]" class="form-control" id="subTotal"></td>'+
+          '<td><input type="number" step="0.01" name="subTotal[]" class="form-control subTotal" id="subTotal"></td>'+
           '<td><button type="button" class="btn btn-danger rounded-circle delete " >☓</button></td>'+   
         '</tr>';
         $('#tbody').append(tr);
@@ -138,12 +154,12 @@
     function total(){
       var total = 0;
 
-      $('#subTotal').each(function(i,e){
+      $('.subTotal').each(function(i,e){
         var amount = $(this).val() -0;
         total +=amount;
       });
            
-      $('#total').val(total);
+      $('.total').val(total);
     }
 
     $('#tbody').delegate('#productID','change',function(){

@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.11.1/dist/js/uikit-icons.min.js"></script>
 </head>
 
+@auth
 <body>
 
   <div class="uk-position-top-right">  
@@ -90,6 +91,21 @@
 
 
 </body>
+@endauth
+
+@guest
+
+<body class="uk-background-muted">
+
+<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m uk-position-center">
+  <h3 class="uk-card-title">Access denied!</h3>
+  <p>You do not have permission to access this page. <br>Please <a href="login">log in</a> and try again.</p>
+</div>
+
+</body>
+
+
+@endguest
 
 
 </html>
